@@ -2,7 +2,7 @@ import Notification from "../models/notification.model.js";
 
 export const getUserNotifications = async (req, res) => {
   try {
-    const notifications = Notification.find({ recipient: req.user._id })
+    const notifications = await Notification.find({ recipient: req.user._id })
       .sort({ createdAt: -1 })
       .populate("relatedUser", "username name profilePicture")
       .populate("relatedPost", "content image");
