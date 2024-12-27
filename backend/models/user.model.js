@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema(
     bannerImg: { type: String, default: "" },
     headline:{
       type: String,
-      default: "LinkedIn User."
+      default: "LinkedIn User"
     },
     location:{
       type: String,

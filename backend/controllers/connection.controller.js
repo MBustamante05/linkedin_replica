@@ -109,8 +109,7 @@ export const acceptConnectionRequest = async (req, res) => {
         profileUrl
       );
     } catch (error) {
-      console.error("Error in acceptConnectionRequest: ", error);
-      res.status(500).json({ message: "Server Error" });
+      console.error("Error sending email: ", error);
     }
   } catch (error) {
     console.error("Error in acceptConnectionRequest: ", error);

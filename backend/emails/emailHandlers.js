@@ -70,6 +70,7 @@ export const sendConnectionAcceptedEmail = async (
       ),
       category: "connection_accepted",
     });
+    console.log('Email accept request notification sent succesfully', response);
   } catch (error) {
     console.error("Error in sendConnectionRequestEmail: ", error);
     res.status(500).json({ message: "Server Error" });
