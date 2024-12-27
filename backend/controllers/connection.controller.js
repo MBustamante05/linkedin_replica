@@ -157,7 +157,7 @@ export const getConnectionRequests = async (req, res) => {
       status: "pending",
     }).populate("sender", "name username profilePicture headline connections");
 
-    res.status(200).json({ requests });
+    res.json(requests);
   } catch (error) {
     console.error("Error in getConnectionRequests: ", error);
     res.status(500).json({ message: "Server Error" });

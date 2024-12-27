@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { axiosInstance } from "../../lib/axios";
 import { Link } from "react-router-dom";
 import { Bell, Home, LogOut, User, Users } from "lucide-react";
+import { NotificationProps } from "../../Types/Notification";
 
 function Navbar() {
   const { data: authUser } = useQuery<{
@@ -11,7 +12,7 @@ function Navbar() {
     queryKey: ["authUser"],
   });
   const queryClient = useQueryClient();
-  const { data: notifications } = useQuery({
+  const { data: notifications = [] } = useQuery({
     queryKey: ["notifications"],
     queryFn: async () => {
       const res = await axiosInstance.get("/notifications");
@@ -19,7 +20,7 @@ function Navbar() {
     },
     enabled: !!authUser,
   });
-  const { data: connectionRequests } = useQuery({
+  const { data: connectionRequests = []} = useQuery({
     queryKey: ["connectionRequests"],
     queryFn: async () => {
       const res = await axiosInstance.get("/connections/requests");
@@ -34,15 +35,8 @@ function Navbar() {
       queryClient.invalidateQueries({ queryKey: ['authUser'] })
     }
   });
-
-  const unreadNotifications = notifications?.data?.filter(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (notif: any) => !notif.read
-  )?.length;
-  const unreadConnectionRequests = connectionRequests?.data?.filter(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (connection: any) => !connection.read
-  )?.length; 
+  const unreadConnectionRequests = connectionRequests?.length;
+  const unreadNotifications = notifications.filter((notif: NotificationProps) => !notif.read).length;
   
   return (
     <div>
