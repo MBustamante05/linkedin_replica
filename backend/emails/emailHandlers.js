@@ -50,7 +50,7 @@ export const sendCommentNotificationEmail = async (
   }
 };
 
-export const sendConnectionRequestEmail = async (
+export const sendConnectionAcceptedEmail = async (
   senderEmail,
   senderName,
   recipientName,

@@ -2,6 +2,7 @@ import { CLIENT_URL } from "../../config.js";
 import ConnectionRequest from "../models/connectionRequest.model.js";
 import Notification from "../models/notification.model.js";
 import User from "../models/user.model.js";
+import { sendConnectionAcceptedEmail } from "../emails/emailHandlers.js";
 
 export const sendConnectionRequest = async (req, res) => {
   try {
@@ -60,7 +61,7 @@ export const acceptConnectionRequest = async (req, res) => {
     }
 
     //check if the request is for the current user
-    if (request.recipient.toString() !== userId.toString()) {
+    if (request.recipient._id.toString() !== userId.toString()) {
       return res
         .status(403)
         .json({ message: "You are not authorized to accept this request" });
