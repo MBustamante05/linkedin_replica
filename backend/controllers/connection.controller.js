@@ -8,7 +8,7 @@ export const sendConnectionRequest = async (req, res) => {
     const { userId } = req.params;
     const senderId = req.user._id;
 
-    if (senderId.toString() === userId.toString()) {
+    if (senderId.toString() === userId) {
       return res
         .status(400)
         .json({ message: "You cannot send a connection request to yourself" });
@@ -216,11 +216,11 @@ export const getConnectionStatus = async (req, res) => {
 
     if (pendingRequest) {
       if (pendingRequest.sender.toString() === currentUserId.toString()) {
-        return res.status(200).json({ status: "pending" });
+        return res.json({ status: "pending" });
       } else {
         return res
           .status(200)
-          .json({ status: "received", request: pendingRequest._id });
+          .json({ status: "received", requestId: pendingRequest._id });
       }
     }
 

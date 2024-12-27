@@ -5,7 +5,7 @@ import { CLIENT_URL } from "../../config.js";
 import { sendCommentNotificationEmail } from "../emails/emailHandlers.js";
 export const getFeedPosts = async (req, res) => {
   try {
-    const posts = await Post.find({ author: { $in: req.user.connections } })
+    const posts = await Post.find({ author: { $in:[ ...req.user.connections, req.user._id] } })
       .populate("author", "name username profilePicture headline")
       .populate("comments.user", "name profilePicture")
       .sort({ createdAt: -1 });
@@ -106,7 +106,7 @@ export const createComment = async (req, res) => {
     ).populate("author", "name email username headline profilePicture");
 
     //create a notification if the comment owner is not the post owner
-    if(post.author.toString() !== req.user._id.toString()){
+    if(post.author._id.toString() !== req.user._id.toString()){
       const newNotification = new Notification({
         recipient: post.author,
         type: "comment",

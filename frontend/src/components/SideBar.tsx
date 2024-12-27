@@ -4,7 +4,6 @@ import { UserObjProps } from "../Types/User";
 
 
 function SideBar({ user }: UserObjProps) {
-  console.log(user);
   return (
 		<div className='bg-secondary rounded-lg shadow'>
 			<div className='p-4 text-center'>

@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { UserObjProps } from "../Types/User"
-import { useMutation} from "@tanstack/react-query";
+import { useMutation, useQueryClient} from "@tanstack/react-query";
 import { axiosInstance } from "../lib/axios";
 import toast from "react-hot-toast";
 import { AxiosError } from "axios";
@@ -12,7 +12,7 @@ function PostCreation({ user }: UserObjProps) {
   const [image, setImage] = useState<File | null | undefined>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
-  // const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
   const { mutate: createPostMutation, isPending } = useMutation({
     mutationFn: async (postData: PostDataProps) => {
@@ -26,6 +26,7 @@ function PostCreation({ user }: UserObjProps) {
     onSuccess: () => {
       toast.success('Post created successfully');
       resetForm();
+      queryClient.invalidateQueries({ queryKey: ['posts'] });
     },
     onError: (err:AxiosError<{ message: string }>) => {
       toast.error(err.response?.data?.message || 'Failed to create post');

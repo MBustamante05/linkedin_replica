@@ -14,8 +14,8 @@ const router = express.Router();
 
 //accept - reject - request
 router.post("/request/:userId", protectRoute, sendConnectionRequest);
-router.put("/accept/:userId", protectRoute, acceptConnectionRequest);
-router.put("/reject/:userId", protectRoute, rejectConnectionRequest);
+router.put("/accept/:requestId", protectRoute, acceptConnectionRequest);
+router.put("/reject/:requestId", protectRoute, rejectConnectionRequest);
 
 //Get all connection request for the current user
 router.get("/requests", protectRoute, getConnectionRequests);
