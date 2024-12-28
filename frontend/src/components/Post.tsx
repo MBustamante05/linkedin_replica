@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { UserProps } from "../Types/User";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import PostAction from "./PostAction";
 import { formatDistanceToNow } from "date-fns";
 
@@ -22,6 +22,8 @@ type Props = {
 };
 
 function Post({ post }: Props) {
+  const { postId } = useParams();
+  
   const { data: authUser } = useQuery<UserProps>({
     queryKey: ["authUser"],
   });
@@ -67,6 +69,7 @@ function Post({ post }: Props) {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["posts"] });
+      queryClient.invalidateQueries({ queryKey: ["post", postId] });
     },
     onError: (err: AxiosError<{ message: string }>) => {
       toast.error(err.response?.data?.message || "Failed to like post");
