@@ -1,17 +1,19 @@
-type Experience = {
+export interface Experience {
+  _id?: string;
   title: string;
   company: string;
-  startDate: Date;
-  endDate: Date;
+  startDate?: string;
+  endDate?: string;
   description: string;
+  currentlyWorking?: boolean;
 }
-type Education = {
+export interface Education {
+  _id?: string;
   school: string;
   degree: string;
-  startYear: Date;
-  endYear: Date;
+  startYear?: string;
+  endYear?: string;
 }
-
 export type UserProps = {
   _id: string;
   name: string;
@@ -23,8 +25,8 @@ export type UserProps = {
   about: string;
   skills: string[];
   experiences: Experience[];
-  educations: Education[];
-  connections: string[];
+  education: Education[];
+  connections: UserProps[];
 }
 export type UserObjProps = {
   user: UserProps

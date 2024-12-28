@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema(
     },
     location:{
       type: String,
-      default: ""
+      default: "Earth"
     },
     about:{
       type: String,
@@ -25,8 +25,8 @@ const userSchema = new mongoose.Schema(
       {
         title: String,
         company: String,
-        startDate: Date,
-        endDate: Date,
+        startDate: Date || String,
+        endDate: Date || String,
         description: String,
       }
     ],
