@@ -6,8 +6,7 @@
   "scripts": {
     "start": "node generateConfig.js && node backend/server.js",
     "dev": "node --watch backend/server.js",
-    "build": "pnpm install && pnpm --prefix frontend install && pnpm --prefix frontend run build",
-    "build:config": "node scripts/generate-config.js"
+    "build": "pnpm install && pnpm --prefix frontend install && pnpm --prefix frontend run build"
   },
   "keywords": [],
   "author": "",
