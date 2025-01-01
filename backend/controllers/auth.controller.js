@@ -44,7 +44,6 @@ export const signup = async (req, res) => {
 
     const profileUrl = `${CLIENT_URL}/profile/${user.username}`;
 
-    //todo: send welcome email
     try {
       await sendWelcomeEmail(user.email, user.name, profileUrl);
     } catch (error) {

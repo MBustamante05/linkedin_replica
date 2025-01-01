@@ -16,6 +16,14 @@ import { UserProps } from "../Types/User";
 import { Link, useParams } from "react-router-dom";
 import PostAction from "./PostAction";
 import { formatDistanceToNow } from "date-fns";
+import {
+  FacebookShareButton,
+  FacebookIcon,
+  PinterestShareButton,
+  PinterestIcon,
+  WhatsappShareButton,
+  WhatsappIcon,
+} from "react-share";
 
 type Props = {
   post: PostModelProps;
@@ -23,7 +31,12 @@ type Props = {
 
 function Post({ post }: Props) {
   const { postId } = useParams();
-  
+
+  const shareText = post.content || "Check out this post!";
+  const shareUrl = post.image
+    ? post.image
+    : `${window.location.origin}/post/${post._id}`;
+
   const { data: authUser } = useQuery<UserProps>({
     queryKey: ["authUser"],
   });
@@ -170,7 +183,40 @@ function Post({ post }: Props) {
             text={`Comment (${comments.length})`}
             onClick={() => setShowComments(!showComments)}
           />
-          <PostAction icon={<Share2 size={18} />} text="Share" />
+          <label
+            htmlFor="my_modal_7"
+            className="btn bg-inherit border-none hover:bg-inherit"
+          >
+            <PostAction icon={<Share2 size={18} />} text="Share" />
+          </label>
+
+          <input type="checkbox" id="my_modal_7" className="modal-toggle" />
+          <div className="modal" role="dialog">
+            <div className="modal-box">
+              <h3 className="text-lg font-bold text-neutral">
+                Share this awesome post!
+              </h3>
+              <div className="py-4 flex items-center gap-2">
+                <PinterestShareButton
+                  description={shareText}
+                  media={post.image}
+                  url={shareUrl}
+                >
+                  <PinterestIcon size={32} round={true} />
+                </PinterestShareButton>
+
+                <FacebookShareButton url={shareUrl} hashtag={shareText}>
+                  <FacebookIcon size={32} round={true} />
+                </FacebookShareButton>
+                <WhatsappShareButton url={shareUrl} title={shareText}>
+                  <WhatsappIcon size={32} round={true} />
+                </WhatsappShareButton>
+              </div>
+            </div>
+            <label className="modal-backdrop" htmlFor="my_modal_7">
+              Close
+            </label>
+          </div>
         </div>
       </div>
 

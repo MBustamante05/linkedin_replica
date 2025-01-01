@@ -8,7 +8,7 @@ function SideBar({ user }: UserObjProps) {
 		<div className='bg-secondary rounded-lg shadow'>
 			<div className='p-4 text-center'>
 				<div
-					className='h-16 rounded-t-lg bg-cover bg-center'
+					className='h-24 rounded-t-lg bg-cover bg-center'
 					style={{
 						backgroundImage: `url("${user.bannerImg || "/banner.png"}")`,
 					}}

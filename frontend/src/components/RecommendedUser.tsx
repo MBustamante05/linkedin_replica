@@ -39,7 +39,6 @@ function RecommendedUser({ user }: Props) {
       queryClient.invalidateQueries({
         queryKey: ["connectionStatus", user._id],
       });
-      // todo: check if we need to invalidate other queries
     },
     onError: (err: AxiosError<{ message: string }>) => {
       toast.error(err.response?.data?.message || "Failed to accept request");
@@ -54,7 +53,6 @@ function RecommendedUser({ user }: Props) {
       queryClient.invalidateQueries({
         queryKey: ["connectionStatus", user._id],
       });
-      // todo: check if we need to invalidate other queries
     },
     onError: (err: AxiosError<{ message: string }>) => {
       toast.error(err.response?.data?.message || "Failed to reject request");
