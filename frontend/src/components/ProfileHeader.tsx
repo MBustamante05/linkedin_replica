@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Profileprops } from "../Types/Profile";
 import { UserProps } from "../Types/User";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -89,11 +89,11 @@ function ProfileHeader({ isOwnProfile, onSave, userData }: Profileprops) {
       toast.error(err.response?.data?.message || "An error occurred");
     },
   });
-  const getConnectionState = () => {
+  const getConnectionState = useMemo(() => {
     if (isConnected) return "connected";
     if (!isConnected) return "disconnected";
     return connectionStatus?.status;
-  };
+  },[isConnected, connectionStatus]);
 
   const renderConnectionButton = () => {
     const baseClass =
