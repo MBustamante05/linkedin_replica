@@ -4,9 +4,10 @@
   "description": "",
   "main": "backend/server.js",
   "scripts": {
-    "start": "node backend/server.js",
+    "start": "node generateConfig.js && node backend/server.js",
     "dev": "node --watch backend/server.js",
-    "build": "pnpm install && pnpm --prefix frontend install && pnpm --prefix frontend run build"
+    "build": "pnpm install && pnpm --prefix frontend install && pnpm --prefix frontend run build",
+    "build:config": "node scripts/generate-config.js"
   },
   "keywords": [],
   "author": "",
