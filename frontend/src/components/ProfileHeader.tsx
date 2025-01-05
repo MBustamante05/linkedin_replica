@@ -28,7 +28,7 @@ function ProfileHeader({ isOwnProfile, onSave, userData }: Profileprops) {
   );
 
   const isConnected = userData.connections.some(
-    (connection) => connection._id === authUser?._id
+    (connection) => connection._id === authUser?._id //hopefully this is correct
   );
 
   const { mutate: sendConnectionRequest } = useMutation({
